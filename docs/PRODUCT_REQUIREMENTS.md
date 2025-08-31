@@ -5,7 +5,7 @@
 **Document Details:**
 - Version: 1.0
 - Status: Draft
-- Author: Lead Writer
+- Author: Shubhendu Vaid
 - Date: August 31, 2025
 
 ## 1. Introduction

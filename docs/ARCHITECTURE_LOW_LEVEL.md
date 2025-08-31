@@ -5,7 +5,7 @@
 **Document Details:**
 - Version: 1.1 (TypeScript)
 - Status: For Implementation
-- Author: Lead Writer
+- Author: Shubhendu Vaid
 - Date: August 31, 2025
 
 ## 1. Introduction
