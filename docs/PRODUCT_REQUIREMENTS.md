@@ -95,10 +95,14 @@ This epic covers the core differentiating feature of the MVP: transforming the u
 
 ## 6. Technical Stack Recommendations
 
-- **Frontend Framework**: React, Vue, or Svelte for a modern, component-based architecture.
-- **Backend/Database**: A simple backend (e.g., Node.js with Express) for user authentication and storage of encrypted data blobs. A NoSQL or document database (e.g., MongoDB) is suitable for storing the encrypted data.
-- **Encryption Libraries**: Use well-vetted, standard cryptographic libraries (e.g., crypto-js or the native Web Crypto API).
-- **Graph Visualization Library**: A performant JavaScript library such as D3.js, Cytoscape.js, or Sigma.js should be evaluated.
+- **Frontend Framework**: React with TypeScript for modern, component-based architecture with type safety.
+- **Build Tool**: Vite for fast development experience and optimized production builds.
+- **State Management**: React Context API for simple, built-in state management.
+- **Backend/Database**: Node.js with Fastify for high-performance API and MongoDB for document-based storage of encrypted data blobs.
+- **Encryption Libraries**: Native Web Crypto API for secure, hardware-accelerated cryptographic operations.
+- **Graph Visualization Library**: Cytoscape.js for performant network visualization with built-in SNA algorithms and TypeScript support.
+- **UI Components**: Radix UI + Tailwind CSS for accessible, professional interface components.
+- **Package Manager**: pnpm for efficient monorepo dependency management.
 
 ## 7. Out of Scope for Phase 1
 

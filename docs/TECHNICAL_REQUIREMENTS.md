@@ -112,9 +112,13 @@ The backend will be a stateless RESTful API. Authentication for protected endpoi
 
 ### 5.1. Framework and Libraries
 
-- **Core Framework**: React is recommended due to its component-based architecture and extensive ecosystem.
-- **Cryptography**: The native Web Crypto API should be used for all cryptographic operations (key derivation, encryption, decryption) as it is a secure, standardized browser feature.
-- **Graph Visualization & Analysis**: Cytoscape.js is the recommended library. It provides a performant Canvas/WebGL renderer suitable for the target network size and includes a rich set of built-in graph theory algorithms, which is ideal for the SNA requirements.
+- **Core Framework**: React with TypeScript for component-based architecture and type safety.
+- **Build Tool**: Vite for fast development and optimized production builds.
+- **State Management**: React Context API for simple, built-in state management.
+- **Cryptography**: The native Web Crypto API for all cryptographic operations (key derivation, encryption, decryption) as it is secure, standardized, and hardware-accelerated.
+- **Graph Visualization & Analysis**: Cytoscape.js provides performant Canvas/WebGL rendering suitable for the target network size and includes built-in graph theory algorithms with excellent TypeScript support.
+- **UI Components**: Radix UI + Tailwind CSS for accessible, professional components.
+- **Package Manager**: pnpm for efficient dependency management in monorepo structure.
 
 ### 5.2. Data Model (Client-Side, Unencrypted)
 

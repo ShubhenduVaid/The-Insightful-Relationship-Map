@@ -110,8 +110,11 @@ This flow ensures that any changes are saved back to the server securely.
 
 ## 6. Technology Stack Summary
 
-- **Frontend**: A modern JavaScript framework like React.
+- **Frontend**: React with TypeScript and Vite for modern development experience.
+- **State Management**: React Context API for simple, built-in state management.
 - **Cryptography**: The native Web Crypto API for all cryptographic operations.
-- **Graph Visualization & Analysis**: A robust library like Cytoscape.js that includes both visualization and graph theory algorithms.
-- **Backend**: A lightweight framework such as Node.js with Express.
-- **Database**: A NoSQL document database like MongoDB, which is well-suited for storing user profiles and unstructured data blobs.
+- **Graph Visualization & Analysis**: Cytoscape.js with TypeScript support for visualization and graph theory algorithms.
+- **Backend**: Node.js with Fastify for high-performance, lightweight API.
+- **Database**: MongoDB for document-based storage, well-suited for storing user profiles and encrypted data blobs.
+- **UI Components**: Radix UI + Tailwind CSS for accessible, professional interface.
+- **Package Manager**: pnpm for efficient monorepo dependency management.
