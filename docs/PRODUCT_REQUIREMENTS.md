@@ -3,6 +3,7 @@
 ## Phase 1: The Insightful Relationship Map (MVP)
 
 **Document Details:**
+
 - Version: 1.0
 - Status: Draft
 - Author: Shubhendu Vaid
@@ -48,6 +49,7 @@ The long-term vision is to create a comprehensive Personal Strategy Engine that 
 **Description**: A founder, investor, senior manager, lawyer, or other professional whose success is highly dependent on navigating complex interpersonal dynamics. They are analytical, goal-oriented, and view their network as a strategic asset.
 
 **Needs & Pains**:
+
 - Feels overwhelmed trying to keep track of the nuances of hundreds of important relationships.
 - Uses a combination of spreadsheets, note-taking apps, and memory, but finds it inefficient and non-insightful.
 - Intuitively understands their network is important but lacks the tools to visualize its structure and identify key opportunities or risks.
@@ -59,32 +61,32 @@ The long-term vision is to create a comprehensive Personal Strategy Engine that 
 
 This epic covers the foundational security architecture of the application. All user data must be private and inaccessible to anyone but the user, including the service provider.
 
-| ID | User Story | Acceptance Criteria |
-|----|------------|---------------------|
-| F-101 | As a new user, I want to create an account with a single, strong master password. | - Account creation requires only an email and a master password.<br>- The master password must meet minimum complexity requirements.<br>- The master password is never transmitted to the server. |
+| ID    | User Story                                                                                | Acceptance Criteria                                                                                                                                                                                                                                               |
+| ----- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| F-101 | As a new user, I want to create an account with a single, strong master password.         | - Account creation requires only an email and a master password.<br>- The master password must meet minimum complexity requirements.<br>- The master password is never transmitted to the server.                                                                 |
 | F-102 | As a user, I want all my data to be encrypted on my device before being stored or synced. | - All data (contacts, notes, logs, etc.) is encrypted locally using an industry-standard algorithm (e.g., AES-256) derived from my master password.<br>- The application follows a zero-knowledge architecture; the server only ever stores encrypted data blobs. |
-| F-103 | As a user, I must be clearly informed that my master password cannot be recovered. | - During onboarding, a clear, unmissable warning explains that a forgotten password means permanent data loss.<br>- The user must acknowledge this warning to proceed. |
+| F-103 | As a user, I must be clearly informed that my master password cannot be recovered.        | - During onboarding, a clear, unmissable warning explains that a forgotten password means permanent data loss.<br>- The user must acknowledge this warning to proceed.                                                                                            |
 
 ### 4.2. Epic: Core Relationship Management
 
 This epic covers the essential Personal CRM functionalities for manual data entry. The user interface must be clean, fast, and optimized for quick logging of information.
 
-| ID | User Story | Acceptance Criteria |
-|----|------------|---------------------|
-| F-201 | As a user, I want to create, view, edit, and delete contacts. | - I can add a new contact with standard fields (Name, Company, Title, Email, Phone).<br>- I can add custom fields and notes to a contact profile (e.g., "How we met," "Family details," "Key interests").<br>- I can view all contacts in a searchable list. |
-| F-202 | As a user, I want to log interactions with my contacts. | - I can create a new log entry associated with one or more contacts.<br>- The log entry should support free-form text for summaries of calls, meetings, or message threads.<br>- Each log entry must be automatically timestamped. |
-| F-203 | As a user, I want to add qualitative notes and tags to a contact. | - I can add unstructured notes or tags to a contact's profile to capture my assessment of their traits (e.g., "risk-averse," "prefers direct communication"). |
-| F-204 | As a user, I want to define relationships between contacts. | - I can select two contacts and create a labeled, directed link between them (e.g., Contact A "is the manager of" Contact B).<br>- I can view a contact's defined relationships from their profile page. |
+| ID    | User Story                                                        | Acceptance Criteria                                                                                                                                                                                                                                          |
+| ----- | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| F-201 | As a user, I want to create, view, edit, and delete contacts.     | - I can add a new contact with standard fields (Name, Company, Title, Email, Phone).<br>- I can add custom fields and notes to a contact profile (e.g., "How we met," "Family details," "Key interests").<br>- I can view all contacts in a searchable list. |
+| F-202 | As a user, I want to log interactions with my contacts.           | - I can create a new log entry associated with one or more contacts.<br>- The log entry should support free-form text for summaries of calls, meetings, or message threads.<br>- Each log entry must be automatically timestamped.                           |
+| F-203 | As a user, I want to add qualitative notes and tags to a contact. | - I can add unstructured notes or tags to a contact's profile to capture my assessment of their traits (e.g., "risk-averse," "prefers direct communication").                                                                                                |
+| F-204 | As a user, I want to define relationships between contacts.       | - I can select two contacts and create a labeled, directed link between them (e.g., Contact A "is the manager of" Contact B).<br>- I can view a contact's defined relationships from their profile page.                                                     |
 
 ### 4.3. Epic: Network Visualization and Analysis
 
 This epic covers the core differentiating feature of the MVP: transforming the user's data into an interactive and insightful network graph.
 
-| ID | User Story | Acceptance Criteria |
-|----|------------|---------------------|
-| F-301 | As a user, I want to view my entire network as an interactive graph. | - All contacts are displayed as nodes, and defined relationships are displayed as edges.<br>- I can pan, zoom, and click on nodes to view contact details.<br>- The visualization should be performant and usable for networks of up to 1000 nodes. |
-| F-302 | As a user, I want the graph to visually represent key SNA metrics. | - The application should automatically calculate and visualize:<br>  - **Tie Strength**: Edge thickness or color should represent the strength of a tie (calculated from interaction frequency).<br>  - **Centrality**: Node size should represent its calculated centrality (e.g., betweenness centrality) to highlight influential individuals.<br>  - **Structural Holes & Bridges**: The layout should make it easy to visually identify clusters, the gaps between them (structural holes), and the nodes that connect them (bridges). |
-| F-303 | As a user, I want to filter and query the graph to find insights. | - I can filter the view to show only contacts with specific tags.<br>- I can highlight the direct and indirect paths between any two nodes in the network. |
+| ID    | User Story                                                           | Acceptance Criteria                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| ----- | -------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| F-301 | As a user, I want to view my entire network as an interactive graph. | - All contacts are displayed as nodes, and defined relationships are displayed as edges.<br>- I can pan, zoom, and click on nodes to view contact details.<br>- The visualization should be performant and usable for networks of up to 1000 nodes.                                                                                                                                                                                                                                                                                      |
+| F-302 | As a user, I want the graph to visually represent key SNA metrics.   | - The application should automatically calculate and visualize:<br> - **Tie Strength**: Edge thickness or color should represent the strength of a tie (calculated from interaction frequency).<br> - **Centrality**: Node size should represent its calculated centrality (e.g., betweenness centrality) to highlight influential individuals.<br> - **Structural Holes & Bridges**: The layout should make it easy to visually identify clusters, the gaps between them (structural holes), and the nodes that connect them (bridges). |
+| F-303 | As a user, I want to filter and query the graph to find insights.    | - I can filter the view to show only contacts with specific tags.<br>- I can highlight the direct and indirect paths between any two nodes in the network.                                                                                                                                                                                                                                                                                                                                                                               |
 
 ## 5. Non-Functional Requirements
 
@@ -98,7 +100,7 @@ This epic covers the core differentiating feature of the MVP: transforming the u
 - **Frontend Framework**: React with TypeScript for modern, component-based architecture with type safety.
 - **Build Tool**: Vite for fast development experience and optimized production builds.
 - **State Management**: React Context API for simple, built-in state management.
-- **Backend/Database**: Node.js with Fastify for high-performance API and MongoDB for document-based storage of encrypted data blobs.
+- **Backend/Database**: Node.js with Express for high-performance API and MongoDB for document-based storage of encrypted data blobs.
 - **Encryption Libraries**: Native Web Crypto API for secure, hardware-accelerated cryptographic operations.
 - **Graph Visualization Library**: Cytoscape.js for performant network visualization with built-in SNA algorithms and TypeScript support.
 - **UI Components**: Radix UI + Tailwind CSS for accessible, professional interface components.

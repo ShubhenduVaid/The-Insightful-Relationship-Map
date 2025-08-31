@@ -73,12 +73,13 @@ The goal is to create a secure foundation and a powerful visualization tool that
 
 ## 💻 Technology Stack
 - **Frontend**: React, TypeScript, Vite  
-- **State Management**: React Context API (built-in)  
+- **State Management**: Zustand (with React Context API fallback)  
 - **Graph Visualization & Analysis**: Cytoscape.js  
-- **Backend**: Node.js, Fastify, TypeScript  
+- **Backend**: Node.js, Express, TypeScript  
 - **Database**: MongoDB  
-- **Cryptography**: Native Web Crypto API  
+- **Cryptography**: Web Crypto API + @noble/hashes  
 - **UI Components**: Radix UI + Tailwind CSS  
+- **Testing**: Vitest (unit), Playwright (E2E)  
 - **Package Manager**: pnpm  
 
 ---

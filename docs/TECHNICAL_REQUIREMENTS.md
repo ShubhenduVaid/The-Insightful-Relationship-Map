@@ -114,10 +114,11 @@ The backend will be a stateless RESTful API. Authentication for protected endpoi
 
 - **Core Framework**: React with TypeScript for component-based architecture and type safety.
 - **Build Tool**: Vite for fast development and optimized production builds.
-- **State Management**: React Context API for simple, built-in state management.
-- **Cryptography**: The native Web Crypto API for all cryptographic operations (key derivation, encryption, decryption) as it is secure, standardized, and hardware-accelerated.
+- **State Management**: Zustand for efficient state management with React Context API fallback.
+- **Cryptography**: The native Web Crypto API for encryption/decryption operations and @noble/hashes for robust PBKDF2 key derivation with better cross-browser compatibility.
 - **Graph Visualization & Analysis**: Cytoscape.js provides performant Canvas/WebGL rendering suitable for the target network size and includes built-in graph theory algorithms with excellent TypeScript support.
 - **UI Components**: Radix UI + Tailwind CSS for accessible, professional components.
+- **Testing**: Vitest for unit testing (better Vite integration) and Playwright for E2E testing.
 - **Package Manager**: pnpm for efficient dependency management in monorepo structure.
 
 ### 5.2. Data Model (Client-Side, Unencrypted)
@@ -169,7 +170,7 @@ This module will be implemented client-side.
 
 ## 7. Testing and Deployment
 
-- **Unit Testing**: All cryptographic functions, SNA calculation logic, and individual React components must have comprehensive unit tests.
-- **Integration Testing**: End-to-end tests must cover the full user flow: registration, login, data creation, data sync, and logout.
+- **Unit Testing**: All cryptographic functions, SNA calculation logic, and individual React components must have comprehensive unit tests using Vitest.
+- **Integration Testing**: End-to-end tests using Playwright must cover the full user flow: registration, login, data creation, data sync, and logout.
 - **Security Auditing**: A mandatory third-party security audit of the entire cryptographic implementation and zero-knowledge architecture must be completed before public launch.
 - **Deployment**: A CI/CD pipeline will be established for automated testing and deployment of both the frontend and backend applications.
