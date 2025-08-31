@@ -84,10 +84,10 @@ The goal is to create a secure foundation and a powerful visualization tool that
 ## 📄 Project Documentation
 We believe in building in the open. All planning and specification docs are available in this repo:
 
-- `/docs/PRODUCT_REQUIREMENTS.md` – The "what" and "why" of the MVP.  
-- `/docs/TECHNICAL_REQUIREMENTS.md` – Technical specifications.  
-- `/docs/ARCHITECTURE_HIGH_LEVEL.md` – High-level architecture overview.  
-- `/docs/ARCHITECTURE_LOW_LEVEL.md` – Low-level implementation details.  
+- [PRODUCT_REQUIREMENTS.md](docs/PRODUCT_REQUIREMENTS.md) – The "what" and "why" of the MVP.  
+- [TECHNICAL_REQUIREMENTS.md](docs/TECHNICAL_REQUIREMENTS.md) – Technical specifications.  
+- [ARCHITECTURE_HIGH_LEVEL.md](docs/ARCHITECTURE_HIGH_LEVEL.md) – High-level architecture overview.  
+- [ARCHITECTURE_LOW_LEVEL.md](docs/ARCHITECTURE_LOW_LEVEL.md) – Low-level implementation details.  
 
 ---
 
@@ -133,7 +133,7 @@ npm run dev
 ## 🤝 How to Contribute
 We welcome contributions from everyone!  
 
-Please read our [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
+Please read our [CONTRIBUTING.md](docs/CONTRIBUTING.md) for detailed guidelines.
 
 ### General Workflow
 1. Find an issue (check `good first issue` or `help wanted`).  
