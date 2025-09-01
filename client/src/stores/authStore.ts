@@ -6,6 +6,7 @@ import type { User } from '../types/auth'
 interface AuthState {
   user: User | null
   token: string | null
+  salt: string | null // Store salt for login
   isAuthenticated: boolean
   isLoading: boolean
   error: string | null
@@ -27,6 +28,7 @@ export const useAuthStore = create<AuthStore>()(
       // State
       user: null,
       token: null,
+      salt: null,
       isAuthenticated: false,
       isLoading: false,
       error: null,
@@ -66,6 +68,7 @@ export const useAuthStore = create<AuthStore>()(
           set({
             user: response.user,
             token: response.token,
+            salt, // Store salt for future logins
             isAuthenticated: true,
             isLoading: false,
             error: null
@@ -76,7 +79,8 @@ export const useAuthStore = create<AuthStore>()(
             isLoading: false,
             isAuthenticated: false,
             user: null,
-            token: null
+            token: null,
+            salt: null
           })
           throw error
         }
@@ -86,6 +90,7 @@ export const useAuthStore = create<AuthStore>()(
         set({
           user: null,
           token: null,
+          salt: null,
           isAuthenticated: false,
           error: null
         })
@@ -104,6 +109,7 @@ export const useAuthStore = create<AuthStore>()(
       partialize: (state) => ({
         user: state.user,
         token: state.token,
+        salt: state.salt,
         isAuthenticated: state.isAuthenticated
       })
     }

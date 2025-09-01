@@ -38,6 +38,10 @@ This project is founded on a few key principles:
 ## 🚀 Current Status: Phase 1 MVP - *The Insightful Relationship Map*
 The project is currently in the first phase of development, focused on building a **Minimum Viable Product (MVP)** that delivers immediate and unique value.  
 
+**✅ Authentication System Complete**: Zero-knowledge user registration and login with client-side cryptography is fully implemented and tested.
+
+**🚧 Currently Building**: Data management interface for contacts and interactions, with network visualization coming next.
+
 The goal is to create a secure foundation and a powerful visualization tool that is useful on its own and sets the stage for future capabilities.
 
 ---
@@ -62,12 +66,20 @@ The goal is to create a secure foundation and a powerful visualization tool that
 ## ✨ Key Features (MVP)
 
 - **Zero-Knowledge Security**: End-to-end encryption with keys only you hold.  
+- **Complete Authentication System**: Secure registration and login with client-side cryptography.
 - **Manual Relationship Logging**: Add contacts, log interactions, and record notes.  
 - **Interactive Network Visualization**: See your network as a dynamic graph.  
 - **Client-Side Social Network Analysis (SNA)**: Metrics include:  
   - *Centrality*: Identify the most influential people.  
   - *Tie Strength*: See which relationships are strongest.  
   - *Structural Holes*: Discover opportunities to bridge disconnected parts of your network.  
+
+### 🔐 Authentication Features
+- **Client-side salt generation** with cryptographically secure random values
+- **PBKDF2 key derivation** (600,000 iterations) for authentication hashes
+- **AES-256-GCM encryption** for data storage with client-side keys
+- **JWT token management** with secure localStorage persistence
+- **Zero-knowledge architecture** - passwords never sent to server  
 
 ---
 

@@ -135,6 +135,19 @@ The backend will be a stateless RESTful API. Authentication for protected endpoi
 - Login: Derive auth hash → Authenticate → Receive JWT + encrypted data
 - Protected routes with automatic token validation and redirects
 
+### 5.3. Integration Testing
+
+**Full-Stack Authentication Testing**:
+- Complete registration → login → data sync → logout cycle
+- Salt storage and retrieval across browser sessions
+- JWT token validation and refresh mechanisms
+- Error handling for network failures and invalid credentials
+
+**Database Integration**:
+- MongoDB operations with encrypted data blobs
+- User data consistency and CRUD operations
+- Concurrent user handling and data isolation
+
 ### 5.2. Data Model (Client-Side, Unencrypted)
 
 The application state will manage a single, unencrypted JSON object representing the user's vault.
@@ -214,7 +227,11 @@ This module will be implemented client-side.
 
 **Current Test Coverage**:
 - Backend API: 17/31 tests passing (JWT, validation, auth routes)
-- Frontend: 9/40 tests passing (auth store, components, crypto utilities)
+- Backend Integration: 12/13 tests passing (full auth flow, database consistency)
+- Frontend: 13/45 tests passing (auth store, components, crypto utilities, integration)
+- Authentication Flow: Complete integration tests for registration → login → data sync
+- Database Consistency: Full CRUD operations with MongoDB Memory Server
+- Security Testing: Input validation, authentication errors, token validation
 - Cryptographic functions: Comprehensive test suite implemented
 - Error scenarios: Network failures, validation errors, crypto failures
 

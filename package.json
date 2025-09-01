@@ -9,11 +9,12 @@
   ],
   "scripts": {
     "dev": "concurrently \"pnpm run dev:server\" \"pnpm run dev:client\"",
-    "dev:client": "pnpm --filter client dev",
-    "dev:server": "pnpm --filter server dev",
-    "build": "pnpm --filter client build && pnpm --filter server build",
-    "test": "pnpm --filter client test && pnpm --filter server test",
-    "lint": "pnpm --filter client lint && pnpm --filter server lint"
+    "dev:client": "pnpm --filter strategy-engine-client dev",
+    "dev:server": "pnpm --filter strategy-engine-server dev",
+    "build": "pnpm --filter strategy-engine-client build && pnpm --filter strategy-engine-server build",
+    "test": "pnpm --filter strategy-engine-client test && pnpm --filter strategy-engine-server test",
+    "test:coverage": "pnpm --filter strategy-engine-client test:coverage && pnpm --filter strategy-engine-server test:coverage",
+    "lint": "pnpm --filter strategy-engine-client lint && pnpm --filter strategy-engine-server lint"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
