@@ -35,7 +35,7 @@ interface DataActions {
   getRelationshipsByContact: (contactId: string) => Relationship[]
 
   // Data synchronization
-  syncData: () => Promise<void>
+  syncData: (password?: string) => Promise<void>
   loadData: (password: string) => Promise<void>
   clearData: () => void
   setError: (error: string | null) => void
@@ -65,6 +65,14 @@ export const useDataStore = create<DataStore>()(
         set(state => ({
           contacts: [...state.contacts, contact]
         }))
+        
+        // Auto-sync after adding
+        setTimeout(() => {
+          const { token, sessionPassword } = useAuthStore.getState()
+          if (token && sessionPassword) {
+            get().syncData(sessionPassword).catch(console.warn)
+          }
+        }, 100)
       },
 
       updateContact: (id, updates) => {
@@ -75,6 +83,14 @@ export const useDataStore = create<DataStore>()(
               : contact
           )
         }))
+        
+        // Auto-sync after updating
+        setTimeout(() => {
+          const { token, sessionPassword } = useAuthStore.getState()
+          if (token && sessionPassword) {
+            get().syncData(sessionPassword).catch(console.warn)
+          }
+        }, 100)
       },
 
       deleteContact: (id) => {
@@ -85,6 +101,14 @@ export const useDataStore = create<DataStore>()(
             rel.fromContactId !== id && rel.toContactId !== id
           )
         }))
+        
+        // Auto-sync after deleting
+        setTimeout(() => {
+          const { token, sessionPassword } = useAuthStore.getState()
+          if (token && sessionPassword) {
+            get().syncData(sessionPassword).catch(console.warn)
+          }
+        }, 100)
       },
 
       getContact: (id) => {
@@ -135,6 +159,14 @@ export const useDataStore = create<DataStore>()(
         set(state => ({
           relationships: [...state.relationships, relationship]
         }))
+        
+        // Auto-sync after adding
+        setTimeout(() => {
+          const { token, sessionPassword } = useAuthStore.getState()
+          if (token && sessionPassword) {
+            get().syncData(sessionPassword).catch(console.warn)
+          }
+        }, 100)
       },
 
       updateRelationship: (id, updates) => {
@@ -160,13 +192,19 @@ export const useDataStore = create<DataStore>()(
       },
 
       // Data synchronization
-      syncData: async () => {
+      syncData: async (password?: string) => {
         try {
           set({ isLoading: true, error: null })
           
-          const { token, salt } = useAuthStore.getState()
+          const { token, salt, sessionPassword } = useAuthStore.getState()
           if (!token || !salt) {
             throw new Error('Authentication required')
+          }
+
+          // Use provided password or session password
+          const syncPassword = password || sessionPassword
+          if (!syncPassword) {
+            throw new Error('Password required for sync')
           }
 
           const userData: UserData = {
@@ -177,8 +215,7 @@ export const useDataStore = create<DataStore>()(
           }
 
           // Encrypt data before sending
-          const password = 'user-password' // This should come from user input
-          const encryptionKey = await deriveEncryptionKey(password, salt)
+          const encryptionKey = await deriveEncryptionKey(syncPassword, salt)
           const encryptedData = await encryptData(JSON.stringify(userData), encryptionKey)
 
           await dataApi.sync(encryptedData, token)

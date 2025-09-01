@@ -29,7 +29,7 @@ export default function RegisterPage() {
       const salt = generateSalt()
       const authHash = await deriveAuthHash(password, salt)
       
-      await register(email, salt, authHash)
+      await register(email, salt, authHash, password)
     } catch (error) {
       // Error is handled by the store
     } finally {

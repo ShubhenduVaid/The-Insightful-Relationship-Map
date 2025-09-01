@@ -93,7 +93,7 @@ describe('LoginPage', () => {
     
     await waitFor(() => {
       expect(mockClearError).toHaveBeenCalled()
-      expect(mockLogin).toHaveBeenCalledWith('test@example.com', 'mock-auth-hash')
+      expect(mockLogin).toHaveBeenCalledWith('test@example.com', 'mock-auth-hash', 'password123')
     })
   })
 

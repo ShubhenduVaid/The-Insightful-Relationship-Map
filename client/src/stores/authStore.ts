@@ -7,14 +7,15 @@ interface AuthState {
   user: User | null
   token: string | null
   salt: string | null // Store salt for login
+  sessionPassword?: string | null // Store password in memory for auto-sync
   isAuthenticated: boolean
   isLoading: boolean
   error: string | null
 }
 
 interface AuthActions {
-  login: (email: string, authHash: string) => Promise<void>
-  register: (email: string, salt: string, authHash: string) => Promise<void>
+  login: (email: string, authHash: string, password?: string) => Promise<void>
+  register: (email: string, salt: string, authHash: string, password?: string) => Promise<void>
   logout: () => void
   clearError: () => void
   setLoading: (loading: boolean) => void
@@ -29,12 +30,13 @@ export const useAuthStore = create<AuthStore>()(
       user: null,
       token: null,
       salt: null,
+      sessionPassword: null,
       isAuthenticated: false,
       isLoading: false,
       error: null,
 
       // Actions
-      login: async (email: string, authHash: string) => {
+      login: async (email: string, authHash: string, password?: string) => {
         try {
           set({ isLoading: true, error: null })
           
@@ -43,6 +45,7 @@ export const useAuthStore = create<AuthStore>()(
           set({
             user: response.user,
             token: response.token,
+            sessionPassword: password, // Store for auto-sync
             isAuthenticated: true,
             isLoading: false,
             error: null
@@ -59,7 +62,7 @@ export const useAuthStore = create<AuthStore>()(
         }
       },
 
-      register: async (email: string, salt: string, authHash: string) => {
+      register: async (email: string, salt: string, authHash: string, password?: string) => {
         try {
           set({ isLoading: true, error: null })
           
@@ -69,6 +72,7 @@ export const useAuthStore = create<AuthStore>()(
             user: response.user,
             token: response.token,
             salt, // Store salt for future logins
+            sessionPassword: password, // Store for auto-sync
             isAuthenticated: true,
             isLoading: false,
             error: null
@@ -90,6 +94,7 @@ export const useAuthStore = create<AuthStore>()(
         set({
           user: null,
           token: null,
+          sessionPassword: null, // Clear password from memory
           isAuthenticated: false,
           error: null
           // Keep salt for future logins

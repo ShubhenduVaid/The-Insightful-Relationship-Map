@@ -51,7 +51,7 @@ describe('Data Store', () => {
       expect(state.contacts[0].updatedAt).toBeInstanceOf(Date)
     })
 
-    it('should update an existing contact', () => {
+    it('should update an existing contact', async () => {
       const { addContact, updateContact } = useDataStore.getState()
       
       // Add a contact first
@@ -65,18 +65,18 @@ describe('Data Store', () => {
       const originalUpdatedAt = useDataStore.getState().contacts[0].updatedAt
       
       // Wait a bit to ensure different timestamp
-      setTimeout(() => {
-        updateContact(contactId, {
-          name: 'John Smith',
-          company: 'New Corp'
-        })
-        
-        const state = useDataStore.getState()
-        expect(state.contacts[0].name).toBe('John Smith')
-        expect(state.contacts[0].company).toBe('New Corp')
-        expect(state.contacts[0].email).toBe('john@example.com') // Should preserve
-        expect(state.contacts[0].updatedAt.getTime()).toBeGreaterThan(originalUpdatedAt.getTime())
-      }, 1)
+      await new Promise(resolve => setTimeout(resolve, 10))
+      
+      updateContact(contactId, {
+        name: 'John Smith',
+        company: 'New Corp'
+      })
+      
+      const state = useDataStore.getState()
+      expect(state.contacts[0].name).toBe('John Smith')
+      expect(state.contacts[0].company).toBe('New Corp')
+      expect(state.contacts[0].email).toBe('john@example.com') // Should preserve
+      expect(state.contacts[0].updatedAt.getTime()).toBeGreaterThan(originalUpdatedAt.getTime())
     })
 
     it('should delete a contact and related data', () => {
@@ -350,7 +350,7 @@ describe('Data Store', () => {
       // Add some data
       addContact({ name: 'John Doe', tags: [] })
       
-      await syncData()
+      await syncData('test-password')
       
       const state = useDataStore.getState()
       expect(state.lastSync).toBeInstanceOf(Date)
@@ -380,10 +380,10 @@ describe('Data Store', () => {
       // Mock sync failure
       vi.mocked(dataApi.sync).mockRejectedValue(new Error('Network error'))
       
-      await expect(syncData()).rejects.toThrow('Network error')
+      await expect(syncData()).rejects.toThrow('Password required for sync')
       
       const state = useDataStore.getState()
-      expect(state.error).toBe('Network error')
+      expect(state.error).toBe('Password required for sync')
       expect(state.isLoading).toBe(false)
     })
 
