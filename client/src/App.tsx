@@ -3,6 +3,7 @@ import { useAuthStore } from './stores/authStore'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import DashboardPage from './pages/DashboardPage'
+import ContactsPage from './pages/ContactsPage'
 import LoadingSpinner from './components/LoadingSpinner'
 
 function App() {
@@ -29,6 +30,10 @@ function App() {
         <Route 
           path="/dashboard" 
           element={isAuthenticated ? <DashboardPage /> : <Navigate to="/login" replace />} 
+        />
+        <Route 
+          path="/contacts" 
+          element={isAuthenticated ? <ContactsPage /> : <Navigate to="/login" replace />} 
         />
         
         {/* Default redirect */}
