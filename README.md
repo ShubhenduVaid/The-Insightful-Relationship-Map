@@ -134,7 +134,25 @@ pnpm dev
 ```
 - Backend API: [http://localhost:5001](http://localhost:5001)  
 - API Documentation: [http://localhost:5001/api-docs](http://localhost:5001/api-docs)
-- Client app: [http://localhost:5173](http://localhost:5173)  
+- Client app: [http://localhost:5173](http://localhost:5173)
+
+### Run tests
+```bash
+# Run all tests (backend + frontend)
+pnpm test
+
+# Run tests with coverage
+pnpm test:coverage
+
+# Run tests in watch mode
+pnpm test:watch
+
+# Run backend tests only
+pnpm --filter server test
+
+# Run frontend tests only  
+pnpm --filter client test
+```  
 
 ---
 

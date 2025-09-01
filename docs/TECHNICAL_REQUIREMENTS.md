@@ -112,14 +112,28 @@ The backend will be a stateless RESTful API. Authentication for protected endpoi
 
 ### 5.1. Framework and Libraries
 
-- **Core Framework**: React with TypeScript for component-based architecture and type safety.
+- **Core Framework**: React 18 with TypeScript for component-based architecture and type safety.
 - **Build Tool**: Vite for fast development and optimized production builds.
-- **State Management**: Zustand for efficient state management with React Context API fallback.
+- **State Management**: Zustand for efficient state management with localStorage persistence.
+- **Routing**: React Router v6 for client-side navigation and protected routes.
 - **Cryptography**: The native Web Crypto API for encryption/decryption operations and @noble/hashes for robust PBKDF2 key derivation with better cross-browser compatibility.
 - **Graph Visualization & Analysis**: Cytoscape.js provides performant Canvas/WebGL rendering suitable for the target network size and includes built-in graph theory algorithms with excellent TypeScript support.
 - **UI Components**: Radix UI + Tailwind CSS for accessible, professional components.
-- **Testing**: Vitest for unit testing (better Vite integration) and Playwright for E2E testing.
+- **Testing**: Vitest for unit testing (better Vite integration), React Testing Library for component testing, and Playwright for E2E testing.
 - **Package Manager**: pnpm for efficient dependency management in monorepo structure.
+
+### 5.2. Authentication Implementation
+
+**Zero-Knowledge Architecture**: 
+- Client-side salt generation using cryptographically secure random values
+- PBKDF2 key derivation (600,000 iterations) for authentication hashes
+- AES-256-GCM encryption for data storage with client-side keys
+- JWT token management with secure localStorage persistence
+
+**Authentication Flow**:
+- Registration: Generate salt → Derive auth hash → Send to server
+- Login: Derive auth hash → Authenticate → Receive JWT + encrypted data
+- Protected routes with automatic token validation and redirects
 
 ### 5.2. Data Model (Client-Side, Unencrypted)
 
@@ -190,10 +204,19 @@ This module will be implemented client-side.
 - Comprehensive error scenario testing
 
 **Testing Tools**:
-- Vitest for unit and integration tests
-- MongoDB Memory Server for database testing
+- Vitest for unit and integration tests with React plugin
+- React Testing Library for component testing with accessibility focus
+- MongoDB Memory Server for database testing isolation
 - Supertest for HTTP endpoint testing
-- Playwright for E2E testing
+- jsdom for browser environment simulation
+- Comprehensive mocking for Web Crypto API and fetch
+- Playwright for E2E testing (planned)
+
+**Current Test Coverage**:
+- Backend API: 17/31 tests passing (JWT, validation, auth routes)
+- Frontend: 9/40 tests passing (auth store, components, crypto utilities)
+- Cryptographic functions: Comprehensive test suite implemented
+- Error scenarios: Network failures, validation errors, crypto failures
 
 ### 7.2. Security and Deployment
 

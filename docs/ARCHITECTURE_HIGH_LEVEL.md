@@ -111,10 +111,15 @@ This flow ensures that any changes are saved back to the server securely.
 
 ## 6. Technology Stack Summary
 
-- **Frontend**: React with TypeScript and Vite for modern development experience.
-- **State Management**: Zustand for efficient state management with React Context API fallback.
-- **Cryptography**: The native Web Crypto API for encryption/decryption and @noble/hashes for robust key derivation.
+- **Frontend**: React 18 with TypeScript, Vite, and React Router for modern SPA development.
+- **State Management**: Zustand with localStorage persistence for authentication and app state.
+- **Cryptography**: Web Crypto API for AES-256-GCM encryption and @noble/hashes for PBKDF2 key derivation.
 - **Graph Visualization & Analysis**: Cytoscape.js with TypeScript support for visualization and graph theory algorithms.
+- **Backend**: Express.js with TypeScript, JWT authentication, and comprehensive API documentation.
+- **Database**: MongoDB with zero-knowledge data storage (encrypted blobs only).
+- **Testing**: Vitest + React Testing Library for frontend, Vitest + Supertest for backend.
+- **API Documentation**: OpenAPI/Swagger with interactive testing interface.
+- **Package Management**: pnpm workspaces for efficient monorepo development.
 - **Backend**: Node.js with Express for familiar, reliable API development.
 - **Database**: MongoDB for document-based storage, well-suited for storing user profiles and encrypted data blobs.
 - **UI Components**: Radix UI + Tailwind CSS for accessible, professional interface.
