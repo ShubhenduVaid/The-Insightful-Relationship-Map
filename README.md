@@ -133,6 +133,7 @@ NODE_ENV=development
 pnpm dev
 ```
 - Backend API: [http://localhost:5001](http://localhost:5001)  
+- API Documentation: [http://localhost:5001/api-docs](http://localhost:5001/api-docs)
 - Client app: [http://localhost:5173](http://localhost:5173)  
 
 ---
