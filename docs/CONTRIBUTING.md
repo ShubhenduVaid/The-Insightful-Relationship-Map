@@ -103,7 +103,18 @@ Examples:
 1. Ensure your PR addresses a specific issue (if applicable).  
 2. Update documentation if your changes introduce new features or configs.  
 3. Add or update tests when applicable.  
-4. Run the test suite and ensure all tests pass.  
+4. Run the test suite and ensure all tests pass:
+   ```bash
+   # Run all tests
+   pnpm test
+   
+   # Run with coverage
+   pnpm test:coverage
+   
+   # Run specific workspace tests
+   pnpm --filter server test
+   pnpm --filter client test
+   ```  
 5. Fill out the PR template with a clear description of your changes.  
 6. Be responsive to reviewer feedback.  
 
@@ -116,7 +127,10 @@ Examples:
 - **Security & Cryptography**: Improving end-to-end encryption patterns.  
 - **UI/UX Design**: Making complex data intuitive to use.  
 - **Documentation**: Writing guides, improving onboarding.  
-- **Testing**: Unit, integration, and end-to-end test coverage.  
+- **Testing**: Unit, integration, and end-to-end test coverage.
+  - Frontend: Vitest + React Testing Library + jsdom
+  - Backend: Vitest + Supertest + MongoDB Memory Server  
+  - Coverage targets: 85% frontend, 90% backend, 100% crypto functions  
 
 ---
 
