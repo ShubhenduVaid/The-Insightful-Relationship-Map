@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useDataStore } from '../stores/dataStore'
 import ContactForm from '../components/ContactForm'
 import ContactList from '../components/ContactList'
+import Navigation from '../components/Navigation'
 import type { Contact } from '../types/data'
 
 export default function ContactsPage() {
@@ -33,7 +34,10 @@ export default function ContactsPage() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="min-h-screen bg-gray-50">
+      <Navigation />
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-8">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold text-gray-900">Contacts</h1>
@@ -85,7 +89,7 @@ export default function ContactsPage() {
 
       {isLoading ? (
         <div className="flex justify-center py-8">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600" role="status" aria-label="Loading contacts"></div>
         </div>
       ) : (
         <ContactList
@@ -100,6 +104,7 @@ export default function ContactsPage() {
           onClose={handleCloseForm}
         />
       )}
+      </div>
     </div>
   )
 }

@@ -1,41 +1,13 @@
 import { Link } from 'react-router-dom'
-import { useAuthStore } from '../stores/authStore'
 import { useDataStore } from '../stores/dataStore'
+import Navigation from '../components/Navigation'
 
 export default function DashboardPage() {
-  const { user, logout } = useAuthStore()
   const { contacts, interactions, relationships } = useDataStore()
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <nav className="bg-white shadow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex items-center">
-              <h1 className="text-xl font-semibold text-gray-900">
-                Personal Strategy Engine
-              </h1>
-            </div>
-            <div className="flex items-center space-x-4">
-              <Link
-                to="/contacts"
-                className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
-              >
-                Contacts
-              </Link>
-              <span className="text-sm text-gray-700">
-                Welcome, {user?.email}
-              </span>
-              <button
-                onClick={logout}
-                className="bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-md text-sm font-medium"
-              >
-                Logout
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Navigation />
 
       <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div className="px-4 py-6 sm:px-0">
@@ -118,9 +90,12 @@ export default function DashboardPage() {
                 >
                   → Manage Contacts
                 </Link>
-                <button className="block w-full text-left px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-md transition-colors">
-                  → View Network (Coming Soon)
-                </button>
+                <Link
+                  to="/network"
+                  className="block w-full text-left px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-md transition-colors"
+                >
+                  → View Network
+                </Link>
                 <button className="block w-full text-left px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-md transition-colors">
                   → Analytics (Coming Soon)
                 </button>

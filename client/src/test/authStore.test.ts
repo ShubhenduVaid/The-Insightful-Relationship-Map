@@ -115,7 +115,7 @@ describe('Auth Store', () => {
   })
 
   describe('logout', () => {
-    it('should clear all user state including salt on logout', () => {
+    it('should clear user state but preserve salt on logout', () => {
       // Set some authenticated state with salt
       useAuthStore.setState({
         user: { id: '1', email: 'test@example.com' },
@@ -130,7 +130,7 @@ describe('Auth Store', () => {
       const state = useAuthStore.getState()
       expect(state.user).toBeNull()
       expect(state.token).toBeNull()
-      expect(state.salt).toBeNull()
+      expect(state.salt).toBe('stored-salt') // Salt persists for future logins
       expect(state.isAuthenticated).toBe(false)
       expect(state.error).toBeNull()
     })

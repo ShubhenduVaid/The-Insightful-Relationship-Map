@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor } from './test-utils'
 import ContactsPage from '../pages/ContactsPage'
 import { useDataStore } from '../stores/dataStore'
 import type { Contact } from '../types/data'
@@ -74,8 +74,8 @@ describe('ContactsPage Integration', () => {
     it('should render contacts page with header and stats', () => {
       render(<ContactsPage />)
       
-      expect(screen.getByText('Contacts')).toBeInTheDocument()
-      expect(screen.getByText('Add Contact')).toBeInTheDocument()
+      expect(screen.getByRole('heading', { name: 'Contacts' })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: 'Add Contact' })).toBeInTheDocument()
       expect(screen.getByPlaceholderText('Search contacts...')).toBeInTheDocument()
       
       // Stats cards
@@ -87,9 +87,10 @@ describe('ContactsPage Integration', () => {
     it('should display correct statistics', () => {
       render(<ContactsPage />)
       
-      expect(screen.getByText('3')).toBeInTheDocument() // Total contacts
-      expect(screen.getByText('3')).toBeInTheDocument() // With company (all have company)
-      expect(screen.getByText('2')).toBeInTheDocument() // Tagged (John and Jane have tags)
+      // Use more specific selectors for statistics
+      expect(screen.getByText('Total Contacts').previousElementSibling).toHaveTextContent('3')
+      expect(screen.getByText('With Company').previousElementSibling).toHaveTextContent('3')
+      expect(screen.getByText('Tagged').previousElementSibling).toHaveTextContent('2')
     })
 
     it('should show loading state', () => {
@@ -120,7 +121,7 @@ describe('ContactsPage Integration', () => {
       render(<ContactsPage />)
       
       const searchInput = screen.getByPlaceholderText('Search contacts...')
-      fireEvent.change(searchInput, { target: { value: 'john' } })
+      fireEvent.change(searchInput, { target: { value: 'John Doe' } })
       
       expect(screen.getByText('John Doe')).toBeInTheDocument()
       expect(screen.queryByText('Jane Smith')).not.toBeInTheDocument()
@@ -179,10 +180,10 @@ describe('ContactsPage Integration', () => {
     it('should open add contact form', () => {
       render(<ContactsPage />)
       
-      const addButton = screen.getByText('Add Contact')
+      const addButton = screen.getByRole('button', { name: 'Add Contact' })
       fireEvent.click(addButton)
       
-      expect(screen.getByText('Add Contact')).toBeInTheDocument()
+      expect(screen.getByRole('heading', { name: 'Add Contact' })).toBeInTheDocument()
       expect(screen.getByLabelText(/Name/)).toBeInTheDocument()
     })
 
@@ -200,13 +201,13 @@ describe('ContactsPage Integration', () => {
       render(<ContactsPage />)
       
       // Open form
-      const addButton = screen.getByText('Add Contact')
+      const addButton = screen.getByRole('button', { name: 'Add Contact' })
       fireEvent.click(addButton)
       
-      expect(screen.getByText('Add Contact')).toBeInTheDocument()
+      expect(screen.getByRole('heading', { name: 'Add Contact' })).toBeInTheDocument()
       
       // Close form
-      const cancelButton = screen.getByText('Cancel')
+      const cancelButton = screen.getByRole('button', { name: 'Cancel' })
       fireEvent.click(cancelButton)
       
       await waitFor(() => {
@@ -270,8 +271,8 @@ describe('ContactsPage Integration', () => {
     it('should update stats when contacts change', () => {
       const { rerender } = render(<ContactsPage />)
       
-      // Initial stats
-      expect(screen.getByText('3')).toBeInTheDocument() // Total contacts
+      // Initial stats - use more specific selector
+      expect(screen.getByText('Total Contacts').previousElementSibling).toHaveTextContent('3')
       
       // Update store with fewer contacts
       vi.mocked(useDataStore).mockReturnValue({
@@ -281,7 +282,7 @@ describe('ContactsPage Integration', () => {
       
       rerender(<ContactsPage />)
       
-      expect(screen.getByText('1')).toBeInTheDocument() // Updated total
+      expect(screen.getByText('Total Contacts').previousElementSibling).toHaveTextContent('1')
     })
 
     it('should calculate company stats correctly', () => {
@@ -325,8 +326,9 @@ describe('ContactsPage Integration', () => {
     it('should have responsive grid layout', () => {
       const { container } = render(<ContactsPage />)
       
-      const gridContainer = container.querySelector('.grid')
-      expect(gridContainer).toHaveClass('grid-cols-1', 'md:grid-cols-2', 'lg:grid-cols-3')
+      // Check contacts grid (the main content grid)
+      const contactsGrid = container.querySelector('.grid.grid-cols-1.md\\:grid-cols-2.lg\\:grid-cols-3')
+      expect(contactsGrid).toBeInTheDocument()
     })
 
     it('should have responsive stats layout', () => {

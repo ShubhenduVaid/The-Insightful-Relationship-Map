@@ -84,6 +84,7 @@ export default function ContactForm({ contact, onClose }: ContactFormProps) {
             <button
               onClick={onClose}
               className="text-gray-400 hover:text-gray-600"
+              aria-label="Close"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -93,10 +94,11 @@ export default function ContactForm({ contact, onClose }: ContactFormProps) {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="contact-name" className="block text-sm font-medium text-gray-700 mb-1">
                 Name *
               </label>
               <input
+                id="contact-name"
                 type="text"
                 required
                 value={formData.name}
@@ -106,10 +108,11 @@ export default function ContactForm({ contact, onClose }: ContactFormProps) {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="contact-email" className="block text-sm font-medium text-gray-700 mb-1">
                 Email
               </label>
               <input
+                id="contact-email"
                 type="email"
                 value={formData.email}
                 onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
@@ -118,10 +121,11 @@ export default function ContactForm({ contact, onClose }: ContactFormProps) {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="contact-phone" className="block text-sm font-medium text-gray-700 mb-1">
                 Phone
               </label>
               <input
+                id="contact-phone"
                 type="tel"
                 value={formData.phone}
                 onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
@@ -130,10 +134,11 @@ export default function ContactForm({ contact, onClose }: ContactFormProps) {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="contact-company" className="block text-sm font-medium text-gray-700 mb-1">
                 Company
               </label>
               <input
+                id="contact-company"
                 type="text"
                 value={formData.company}
                 onChange={(e) => setFormData(prev => ({ ...prev, company: e.target.value }))}
@@ -142,10 +147,11 @@ export default function ContactForm({ contact, onClose }: ContactFormProps) {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="contact-position" className="block text-sm font-medium text-gray-700 mb-1">
                 Position
               </label>
               <input
+                id="contact-position"
                 type="text"
                 value={formData.position}
                 onChange={(e) => setFormData(prev => ({ ...prev, position: e.target.value }))}
@@ -154,11 +160,12 @@ export default function ContactForm({ contact, onClose }: ContactFormProps) {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="tags-input" className="block text-sm font-medium text-gray-700 mb-1">
                 Tags
               </label>
               <div className="flex gap-2 mb-2">
                 <input
+                  id="tags-input"
                   type="text"
                   value={tagInput}
                   onChange={(e) => setTagInput(e.target.value)}
@@ -194,10 +201,11 @@ export default function ContactForm({ contact, onClose }: ContactFormProps) {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="contact-notes" className="block text-sm font-medium text-gray-700 mb-1">
                 Notes
               </label>
               <textarea
+                id="contact-notes"
                 rows={3}
                 value={formData.notes}
                 onChange={(e) => setFormData(prev => ({ ...prev, notes: e.target.value }))}

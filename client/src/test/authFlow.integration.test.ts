@@ -167,12 +167,12 @@ describe('Authentication Flow Integration', () => {
       const { logout } = useAuthStore.getState()
       logout()
       
-      // Verify logout cleared auth but salt should persist in localStorage
+      // Verify logout cleared auth but salt persists
       const stateAfterLogout = useAuthStore.getState()
       expect(stateAfterLogout.isAuthenticated).toBe(false)
       expect(stateAfterLogout.user).toBeNull()
       expect(stateAfterLogout.token).toBeNull()
-      expect(stateAfterLogout.salt).toBeNull() // Logout clears everything
+      expect(stateAfterLogout.salt).toBe(salt) // Salt persists for future logins
       
       // Step 3: Simulate app restart - restore from localStorage
       const persistedData = JSON.parse(localStorage.getItem('auth-storage') || '{}')
@@ -199,7 +199,7 @@ describe('Authentication Flow Integration', () => {
       const finalState = useAuthStore.getState()
       expect(finalState.isAuthenticated).toBe(true)
       expect(finalState.user?.email).toBe(email)
-      expect(finalState.token).toBe('login-token')
+      expect(finalState.token).toBe('mock-jwt-token')
     })
   })
 

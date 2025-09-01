@@ -4,6 +4,7 @@ import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import DashboardPage from './pages/DashboardPage'
 import ContactsPage from './pages/ContactsPage'
+import NetworkPage from './pages/NetworkPage'
 import LoadingSpinner from './components/LoadingSpinner'
 
 function App() {
@@ -34,6 +35,10 @@ function App() {
         <Route 
           path="/contacts" 
           element={isAuthenticated ? <ContactsPage /> : <Navigate to="/login" replace />} 
+        />
+        <Route 
+          path="/network" 
+          element={isAuthenticated ? <NetworkPage /> : <Navigate to="/login" replace />} 
         />
         
         {/* Default redirect */}

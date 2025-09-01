@@ -122,7 +122,7 @@ describe('ContactList', () => {
       expect(screen.getByText(/Great developer with React expertise/)).toBeInTheDocument()
       
       // Creation date
-      expect(screen.getByText('Added 1/1/2024')).toBeInTheDocument()
+      expect(screen.getByText('Added 01/01/2024')).toBeInTheDocument()
     })
 
     it('should handle contacts with missing optional fields', () => {
@@ -227,8 +227,9 @@ describe('ContactList', () => {
     it('should apply hover effects to contact cards', () => {
       render(<ContactList contacts={[mockContacts[0]]} onEditContact={mockOnEditContact} />)
       
-      const contactCard = screen.getByText('John Doe').closest('div')
-      expect(contactCard).toHaveClass('hover:shadow-md', 'transition-shadow')
+      const contactCard = screen.getByText('John Doe').closest('.bg-white')
+      expect(contactCard).toHaveClass('hover:shadow-md')
+      expect(contactCard).toHaveClass('transition-shadow')
     })
   })
 

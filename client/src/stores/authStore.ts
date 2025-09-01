@@ -90,9 +90,9 @@ export const useAuthStore = create<AuthStore>()(
         set({
           user: null,
           token: null,
-          salt: null,
           isAuthenticated: false,
           error: null
+          // Keep salt for future logins
         })
       },
 

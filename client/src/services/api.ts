@@ -66,7 +66,10 @@ export const dataApi = {
   async sync(dataBlob: string, token: string): Promise<{ message: string; timestamp: string }> {
     return apiRequest('/api/sync', {
       method: 'PUT',
-      headers: getAuthHeaders(token),
+      headers: {
+        ...getAuthHeaders(token),
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({ dataBlob }),
     })
   }
