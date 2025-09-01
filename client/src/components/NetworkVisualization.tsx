@@ -23,6 +23,7 @@ export default function NetworkVisualization({
 }: NetworkVisualizationProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const cyRef = useRef<Core | null>(null)
+  const mountedRef = useRef(true)
   const [metrics, setMetrics] = useState<NetworkMetrics | null>(null)
   const [layoutType, setLayoutType] = useState<'cose' | 'circle' | 'grid'>('cose')
 
@@ -155,15 +156,14 @@ export default function NetworkVisualization({
       ],
       layout: {
         name: layoutType,
-        animate: true,
-        animationDuration: 1000,
+        animate: false,
         ...(layoutType === 'cose' && {
           nodeRepulsion: 8000,
           idealEdgeLength: 100,
           edgeElasticity: 100,
           nestingFactor: 1.2,
           gravity: 1,
-          numIter: 1000,
+          numIter: 100,
           initialTemp: 1000,
           coolingFactor: 0.99,
           minTemp: 1.0
@@ -190,12 +190,17 @@ export default function NetworkVisualization({
     })
 
     // Calculate and store metrics
-    if (cyRef.current) {
+    if (cyRef.current && mountedRef.current) {
       setMetrics(calculateMetrics(cyRef.current))
     }
 
     return () => {
-      cyRef.current?.destroy()
+      mountedRef.current = false
+      if (cyRef.current) {
+        cyRef.current.removeAllListeners()
+        cyRef.current.destroy()
+        cyRef.current = null
+      }
     }
   }, [contacts, relationships, layoutType, onNodeSelect])
 
