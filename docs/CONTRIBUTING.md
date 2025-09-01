@@ -130,6 +130,7 @@ Examples:
 - **Testing**: Unit, integration, and end-to-end test coverage.
   - Frontend: Vitest + React Testing Library + jsdom
   - Backend: Vitest + Supertest + MongoDB Memory Server  
+  - Integration: Full authentication flow testing with database
   - Coverage targets: 85% frontend, 90% backend, 100% crypto functions  
 
 ---

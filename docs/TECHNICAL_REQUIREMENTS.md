@@ -135,6 +135,19 @@ The backend will be a stateless RESTful API. Authentication for protected endpoi
 - Login: Derive auth hash → Authenticate → Receive JWT + encrypted data
 - Protected routes with automatic token validation and redirects
 
+### 5.3. Integration Testing
+
+**Full-Stack Authentication Testing**:
+- Complete registration → login → data sync → logout cycle
+- Salt storage and retrieval across browser sessions
+- JWT token validation and refresh mechanisms
+- Error handling for network failures and invalid credentials
+
+**Database Integration**:
+- MongoDB operations with encrypted data blobs
+- User data consistency and CRUD operations
+- Concurrent user handling and data isolation
+
 ### 5.2. Data Model (Client-Side, Unencrypted)
 
 The application state will manage a single, unencrypted JSON object representing the user's vault.
