@@ -7,7 +7,62 @@ import { User } from '../models/User.js';
 
 const router = express.Router();
 
-// PUT /api/sync - Update user's encrypted data blob
+/**
+ * @swagger
+ * /api/sync:
+ *   put:
+ *     summary: Synchronize encrypted user data
+ *     description: Updates the user's encrypted data blob on the server
+ *     tags: [Data]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/SyncRequest'
+ *           example:
+ *             dataBlob: "encrypted_aes_256_gcm_data_blob..."
+ *     responses:
+ *       200:
+ *         description: Data synchronized successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Data synchronized successfully"
+ *                 timestamp:
+ *                   type: string
+ *                   format: date-time
+ *       401:
+ *         description: Access token required
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *       403:
+ *         description: Invalid or expired token
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *       404:
+ *         description: User not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *       400:
+ *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ */
 router.put('/sync', authenticateToken, async (req: AuthRequest, res) => {
   try {
     const validatedData = syncSchema.parse(req.body);

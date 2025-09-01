@@ -3,6 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
 import { connectDB } from './config/database.js';
+import { specs, swaggerUi } from './config/swagger.js';
 import authRoutes from './routes/auth.js';
 import dataRoutes from './routes/data.js';
 
@@ -24,6 +25,12 @@ app.use(cors({
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
+// Swagger documentation
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, {
+  customCss: '.swagger-ui .topbar { display: none }',
+  customSiteTitle: 'Personal Strategy Engine API'
+}));
+
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api', dataRoutes);
@@ -31,6 +38,26 @@ app.use('/api', dataRoutes);
 // Health check
 app.get('/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });
+});
+
+// API info endpoint
+app.get('/api', (req, res) => {
+  res.json({
+    name: 'Personal Strategy Engine API',
+    version: '1.0.0',
+    description: 'Zero-knowledge personal relationship mapping and social network analysis API',
+    documentation: '/api-docs',
+    endpoints: {
+      auth: {
+        register: 'POST /api/auth/register',
+        login: 'POST /api/auth/login'
+      },
+      data: {
+        sync: 'PUT /api/sync'
+      },
+      health: 'GET /health'
+    }
+  });
 });
 
 // Error handling middleware
@@ -46,6 +73,8 @@ const startServer = async () => {
     app.listen(PORT, () => {
       console.log(`🚀 Server running on port ${PORT}`);
       console.log(`📊 Health check: http://localhost:${PORT}/health`);
+      console.log(`📚 API docs: http://localhost:${PORT}/api-docs`);
+      console.log(`🔍 API info: http://localhost:${PORT}/api`);
     });
   } catch (error) {
     console.error('Failed to start server:', error);

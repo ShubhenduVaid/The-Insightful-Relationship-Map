@@ -7,7 +7,43 @@ import { User, CreateUserData } from '../models/User.js';
 
 const router = express.Router();
 
-// POST /api/auth/register
+/**
+ * @swagger
+ * /api/auth/register:
+ *   post:
+ *     summary: Register a new user
+ *     description: Creates a new user account with client-side generated salt and auth hash
+ *     tags: [Authentication]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/RegisterRequest'
+ *           example:
+ *             email: "user@example.com"
+ *             salt: "a1b2c3d4e5f6..."
+ *             authHash: "pbkdf2_hash_result..."
+ *     responses:
+ *       201:
+ *         description: User created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/AuthResponse'
+ *       409:
+ *         description: User already exists
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *       400:
+ *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ */
 router.post('/register', async (req, res) => {
   try {
     const validatedData = registerSchema.parse(req.body);
@@ -55,7 +91,42 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// POST /api/auth/login
+/**
+ * @swagger
+ * /api/auth/login:
+ *   post:
+ *     summary: Login user
+ *     description: Authenticates user and returns JWT token with encrypted data blob
+ *     tags: [Authentication]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/LoginRequest'
+ *           example:
+ *             email: "user@example.com"
+ *             authHash: "pbkdf2_hash_result..."
+ *     responses:
+ *       200:
+ *         description: Login successful
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/AuthResponse'
+ *       401:
+ *         description: Invalid credentials
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *       400:
+ *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ */
 router.post('/login', async (req, res) => {
   try {
     const validatedData = loginSchema.parse(req.body);
