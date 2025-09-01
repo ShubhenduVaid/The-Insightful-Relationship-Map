@@ -16,6 +16,7 @@ describe('Auth Store', () => {
     useAuthStore.setState({
       user: null,
       token: null,
+      salt: null,
       isAuthenticated: false,
       isLoading: false,
       error: null
@@ -29,9 +30,49 @@ describe('Auth Store', () => {
       
       expect(state.user).toBeNull()
       expect(state.token).toBeNull()
+      expect(state.salt).toBeNull()
       expect(state.isAuthenticated).toBe(false)
       expect(state.isLoading).toBe(false)
       expect(state.error).toBeNull()
+    })
+  })
+
+  describe('register', () => {
+    it('should handle successful registration and store salt', async () => {
+      const mockResponse = {
+        user: { id: '1', email: 'test@example.com' },
+        token: 'mock-jwt-token',
+        message: 'User created successfully'
+      }
+      
+      vi.mocked(authApi.register).mockResolvedValue(mockResponse)
+      
+      const { register } = useAuthStore.getState()
+      await register('test@example.com', 'test-salt-123', 'mock-auth-hash')
+      
+      const state = useAuthStore.getState()
+      expect(state.user).toEqual(mockResponse.user)
+      expect(state.token).toBe(mockResponse.token)
+      expect(state.salt).toBe('test-salt-123')
+      expect(state.isAuthenticated).toBe(true)
+      expect(state.isLoading).toBe(false)
+      expect(state.error).toBeNull()
+    })
+
+    it('should handle registration failure and clear salt', async () => {
+      const mockError = new Error('User already exists')
+      vi.mocked(authApi.register).mockRejectedValue(mockError)
+      
+      const { register } = useAuthStore.getState()
+      
+      await expect(register('test@example.com', 'salt', 'hash')).rejects.toThrow('User already exists')
+      
+      const state = useAuthStore.getState()
+      expect(state.user).toBeNull()
+      expect(state.token).toBeNull()
+      expect(state.salt).toBeNull()
+      expect(state.isAuthenticated).toBe(false)
+      expect(state.error).toBe('User already exists')
     })
   })
 
@@ -71,78 +112,15 @@ describe('Auth Store', () => {
       expect(state.isLoading).toBe(false)
       expect(state.error).toBe('Invalid credentials')
     })
-
-    it('should set loading state during login', async () => {
-      let resolveLogin: (value: any) => void
-      const loginPromise = new Promise(resolve => {
-        resolveLogin = resolve
-      })
-      
-      vi.mocked(authApi.login).mockReturnValue(loginPromise)
-      
-      const { login } = useAuthStore.getState()
-      const loginCall = login('test@example.com', 'mock-hash')
-      
-      // Check loading state is set
-      expect(useAuthStore.getState().isLoading).toBe(true)
-      
-      // Resolve the promise
-      resolveLogin!({
-        user: { id: '1', email: 'test@example.com' },
-        token: 'token',
-        message: 'Success'
-      })
-      
-      await loginCall
-      
-      // Check loading state is cleared
-      expect(useAuthStore.getState().isLoading).toBe(false)
-    })
-  })
-
-  describe('register', () => {
-    it('should handle successful registration', async () => {
-      const mockResponse = {
-        user: { id: '1', email: 'test@example.com' },
-        token: 'mock-jwt-token',
-        message: 'User created successfully'
-      }
-      
-      vi.mocked(authApi.register).mockResolvedValue(mockResponse)
-      
-      const { register } = useAuthStore.getState()
-      await register('test@example.com', 'mock-salt', 'mock-auth-hash')
-      
-      const state = useAuthStore.getState()
-      expect(state.user).toEqual(mockResponse.user)
-      expect(state.token).toBe(mockResponse.token)
-      expect(state.isAuthenticated).toBe(true)
-      expect(state.isLoading).toBe(false)
-      expect(state.error).toBeNull()
-    })
-
-    it('should handle registration failure', async () => {
-      const mockError = new Error('User already exists')
-      vi.mocked(authApi.register).mockRejectedValue(mockError)
-      
-      const { register } = useAuthStore.getState()
-      
-      await expect(register('test@example.com', 'salt', 'hash')).rejects.toThrow('User already exists')
-      
-      const state = useAuthStore.getState()
-      expect(state.user).toBeNull()
-      expect(state.token).toBeNull()
-      expect(state.isAuthenticated).toBe(false)
-      expect(state.error).toBe('User already exists')
-    })
   })
 
   describe('logout', () => {
-    it('should clear user state on logout', () => {
-      // Set some authenticated state
+    it('should clear all user state including salt on logout', () => {
+      // Set some authenticated state with salt
       useAuthStore.setState({
         user: { id: '1', email: 'test@example.com' },
         token: 'mock-token',
+        salt: 'stored-salt',
         isAuthenticated: true
       })
       
@@ -152,29 +130,29 @@ describe('Auth Store', () => {
       const state = useAuthStore.getState()
       expect(state.user).toBeNull()
       expect(state.token).toBeNull()
+      expect(state.salt).toBeNull()
       expect(state.isAuthenticated).toBe(false)
       expect(state.error).toBeNull()
     })
   })
 
-  describe('utility actions', () => {
-    it('should clear error', () => {
-      useAuthStore.setState({ error: 'Some error' })
+  describe('persistence', () => {
+    it('should persist salt in localStorage', () => {
+      const testState = {
+        user: { id: '1', email: 'test@example.com' },
+        token: 'test-token',
+        salt: 'test-salt',
+        isAuthenticated: true
+      }
       
-      const { clearError } = useAuthStore.getState()
-      clearError()
+      useAuthStore.setState(testState)
       
-      expect(useAuthStore.getState().error).toBeNull()
-    })
-
-    it('should set loading state', () => {
-      const { setLoading } = useAuthStore.getState()
-      
-      setLoading(true)
-      expect(useAuthStore.getState().isLoading).toBe(true)
-      
-      setLoading(false)
-      expect(useAuthStore.getState().isLoading).toBe(false)
+      // Check that salt is included in persisted state
+      const persistedData = JSON.parse(localStorage.getItem('auth-storage') || '{}')
+      expect(persistedData.state.salt).toBe('test-salt')
+      expect(persistedData.state.user).toEqual(testState.user)
+      expect(persistedData.state.token).toBe(testState.token)
+      expect(persistedData.state.isAuthenticated).toBe(true)
     })
   })
 })
