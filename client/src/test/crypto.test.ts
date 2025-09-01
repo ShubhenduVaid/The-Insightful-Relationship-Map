@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect } from 'vitest'
 import { generateSalt, deriveAuthHash, deriveEncryptionKey, encryptData, decryptData } from '../utils/crypto'
 
 describe('Crypto Utilities', () => {
