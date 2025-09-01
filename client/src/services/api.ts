@@ -1,6 +1,6 @@
 import type { LoginRequest, RegisterRequest, AuthResponse } from '../types/auth'
 
-const API_BASE_URL = (import.meta as any).env?.VITE_API_URL || 'http://localhost:5001'
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001'
 
 class ApiError extends Error {
   constructor(public status: number, message: string) {

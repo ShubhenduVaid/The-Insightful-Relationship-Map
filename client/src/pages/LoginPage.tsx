@@ -9,7 +9,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   
-  const { login, error, clearError } = useAuthStore()
+  const { login, salt, error, clearError } = useAuthStore()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -19,10 +19,22 @@ export default function LoginPage() {
     clearError()
 
     try {
-      // For login, we need to derive the auth hash from password
-      // In a real app, we'd need the user's salt from the server first
-      // For now, we'll use a placeholder - this needs to be implemented properly
-      const authHash = await deriveAuthHash(password, 'placeholder-salt')
+      // Use stored salt if available, otherwise use temporary email-based salt
+      let userSalt = salt
+      
+      if (!userSalt) {
+        // Temporary fallback: derive salt from email for demo
+        // In production, this should either:
+        // 1. Require registration first, or
+        // 2. Implement a secure salt retrieval mechanism
+        userSalt = Array.from(new TextEncoder().encode(email))
+          .map(b => b.toString(16).padStart(2, '0'))
+          .join('')
+          .substring(0, 64)
+          .padEnd(64, '0')
+      }
+      
+      const authHash = await deriveAuthHash(password, userSalt)
       await login(email, authHash)
     } catch (error) {
       // Error is handled by the store
@@ -41,6 +53,11 @@ export default function LoginPage() {
           <p className="mt-2 text-center text-sm text-gray-600">
             Access your personal strategy engine
           </p>
+          {!salt && (
+            <p className="mt-2 text-center text-xs text-amber-600">
+              Demo mode: Please register first for secure authentication
+            </p>
+          )}
         </div>
         
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
