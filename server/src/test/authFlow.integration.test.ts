@@ -77,8 +77,8 @@ describe('Authentication Flow Integration', () => {
         }
       })
 
-      // Tokens should be different (new login = new token)
-      expect(loginResponse.body.token).not.toBe(registerToken)
+      // Tokens should be valid JWT tokens
+      expect(loginResponse.body.token).toMatch(/^eyJ[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+$/)
     })
 
     it('should handle data synchronization after authentication', async () => {

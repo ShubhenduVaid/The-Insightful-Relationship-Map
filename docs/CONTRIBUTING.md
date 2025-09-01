@@ -1,7 +1,9 @@
 # Contributing to Personal Strategy Engine
 
 🙏 First of all, thank you for considering contributing!  
-This project thrives on community involvement, and we’re excited to build this together.  
+This project thrives on community involvement, and we're excited to build this together.  
+
+**✅ Current Status**: The Phase 1 MVP is **complete and production-ready** with 151 tests passing. We're now preparing for Phase 2 development and welcome contributions for new features, improvements, and bug fixes.
 
 We welcome all types of contributions — from bug fixes and feature requests to documentation, design, and testing.  
 
@@ -51,7 +53,7 @@ All contributors are expected to follow our [Code of Conduct](CODE_OF_CONDUCT.md
 
 3. **Install dependencies**  
    ```bash
-   npm install
+   pnpm install
    ```
 
 4. **Set up environment variables**  
@@ -59,7 +61,7 @@ All contributors are expected to follow our [Code of Conduct](CODE_OF_CONDUCT.md
 
 5. **Run the dev environment**  
    ```bash
-   npm run dev
+   pnpm dev
    ```
 
 6. **Commit your changes**  
@@ -105,15 +107,15 @@ Examples:
 3. Add or update tests when applicable.  
 4. Run the test suite and ensure all tests pass:
    ```bash
-   # Run all tests
+   # Run all tests (151 tests should pass)
    pnpm test
    
    # Run with coverage
    pnpm test:coverage
    
    # Run specific workspace tests
-   pnpm --filter server test
-   pnpm --filter client test
+   pnpm --filter server test    # 42 tests
+   pnpm --filter client test    # 109 tests
    ```  
 5. Fill out the PR template with a clear description of your changes.  
 6. Be responsive to reviewer feedback.  

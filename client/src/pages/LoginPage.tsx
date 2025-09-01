@@ -35,7 +35,7 @@ export default function LoginPage() {
       }
       
       const authHash = await deriveAuthHash(password, userSalt)
-      await login(email, authHash)
+      await login(email, authHash, password)
     } catch (error) {
       // Error is handled by the store
     } finally {
