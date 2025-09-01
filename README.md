@@ -98,35 +98,39 @@ We believe in building in the open. All planning and specification docs are avai
 
 ### Prerequisites
 - Node.js (v18 or later)  
-- npm / yarn  
+- pnpm (v8 or later)  
 - Git  
 - MongoDB instance  
 
 ### Clone the repository
 ```bash
-git clone https://github.com/your-username/personal-strategy-engine.git
+git clone https://github.com/ShubhenduVaid/personal-strategy-engine.git
 cd personal-strategy-engine
 ```
 
 ### Install dependencies
 ```bash
-# From root directory (monorepo setup)
-npm install
+# Install pnpm if you don't have it
+npm install -g pnpm
+
+# Install all workspace dependencies
+pnpm install
 ```
 
 ### Set up environment variables
-Create a `.env` file in `/server`:
+Create a `.env` file in `/server` (copy from `.env.example`):
 
 ```bash
 # /server/.env
 MONGO_URI=mongodb://localhost:27017/strategy-engine
 JWT_SECRET=your_super_secret_key_here
 PORT=5001
+NODE_ENV=development
 ```
 
 ### Run the development servers
 ```bash
-npm run dev
+pnpm dev
 ```
 - Backend API: [http://localhost:5001](http://localhost:5001)  
 - Client app: [http://localhost:5173](http://localhost:5173)  
