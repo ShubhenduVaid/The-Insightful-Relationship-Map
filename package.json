@@ -1,0 +1,27 @@
+{
+  "name": "personal-strategy-engine",
+  "version": "1.0.0",
+  "description": "Zero-knowledge personal relationship mapping and social network analysis tool",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "dev": "concurrently \"pnpm run dev:server\" \"pnpm run dev:client\"",
+    "dev:client": "pnpm --filter client dev",
+    "dev:server": "pnpm --filter server dev",
+    "build": "pnpm --filter client build && pnpm --filter server build",
+    "test": "pnpm --filter client test && pnpm --filter server test",
+    "lint": "pnpm --filter client lint && pnpm --filter server lint"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "author": "Shubhendu Vaid",
+  "license": "MIT"
+}

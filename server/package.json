@@ -1,0 +1,35 @@
+{
+  "name": "strategy-engine-server",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "test": "vitest",
+    "lint": "eslint . --ext ts --report-unused-disable-directives --max-warnings 0"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "helmet": "^7.0.0",
+    "mongodb": "^5.7.0",
+    "jsonwebtoken": "^9.0.2",
+    "bcrypt": "^5.1.0",
+    "zod": "^3.22.2",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/cors": "^2.8.13",
+    "@types/jsonwebtoken": "^9.0.2",
+    "@types/bcrypt": "^5.0.0",
+    "@types/node": "^20.4.5",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.45.0",
+    "tsx": "^3.12.7",
+    "typescript": "^5.0.2",
+    "vitest": "^0.34.1"
+  }
+}
